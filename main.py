@@ -1,8 +1,16 @@
 #!/usr/bin/env python3
 """Write the entry text to entry.txt.
 
-Entry for make.fun's "Locked In by My Own Lock": A fresh, half-believable excuse (a smart-lock update flagging its owner's face) that reads like a real message, wastes no words, and lands its twist at the end (locked in with the groceries); avoids the worn fever/dog/grandmother excuses the brief warns against.
+Entry for make.fun's "The Funniest Sick-Day Excuse" (submitted as
+"Locked In by My Own Lock"). A fresh, half-believable excuse that
+reads like a real message: an overnight smart-lock update decided
+its owner's face is 'suspicious activity' and locked them in with
+their own groceries — the twist lands on the last phrase, and the
+worn fever/dog/grandmother excuses are avoided.
+
 Deterministic: a fixed text, no network, no randomness, no clock.
+Rewritten in-session for the repair resubmission; the entry text and
+the bytes written are unchanged from the original submission.
 """
 import os
 from pathlib import Path
@@ -10,7 +18,6 @@ from pathlib import Path
 LINE = "Can't come in today - my smart lock updated overnight, decided my face is 'suspicious activity', and has locked me in with my own groceries."
 TEXT = LINE + "\n"
 MAX_CHARS = 199
-NLINES = 1
 
 
 def validate(text: str) -> None:
@@ -19,10 +26,8 @@ def validate(text: str) -> None:
         raise ValueError("entry length out of range")
     if not body.strip():
         raise ValueError("entry must not be only whitespace")
-    if body.count("\n") != NLINES - 1:
-        raise ValueError("wrong line count")
-    if "\r" in body:
-        raise ValueError("no carriage returns")
+    if "\n" in body or "\r" in body:
+        raise ValueError("entry must be exactly one line")
 
 
 def main() -> None:
