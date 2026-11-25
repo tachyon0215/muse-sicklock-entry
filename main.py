@@ -11,6 +11,12 @@ worn fever/dog/grandmother excuses are avoided.
 Deterministic: a fixed text, no network, no randomness, no clock.
 The entry text and the bytes written are unchanged from the
 original submission.
+
+Entrypoint notes: this script is the whole entry. Running it
+validates the fixed one-line sick-day excuse against the brief's
+length and single-line rules, writes it as entry.txt under the
+output directory, and verifies the bytes by reading them back.
+Nothing else is read, fetched, or computed at runtime.
 """
 import os
 from pathlib import Path
